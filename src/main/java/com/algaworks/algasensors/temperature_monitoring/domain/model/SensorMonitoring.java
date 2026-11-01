@@ -21,6 +21,7 @@ public class SensorMonitoring {
     @Id
     @AttributeOverride(name = "value", column = @Column(name = "id", columnDefinition = "BIGINT"))
     private SensorId id;
+
     private Double lastTemperature;
     private OffsetDateTime updateAt;
     private Boolean enabled;

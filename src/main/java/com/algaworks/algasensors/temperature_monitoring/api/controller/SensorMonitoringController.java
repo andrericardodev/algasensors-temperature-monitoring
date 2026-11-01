@@ -44,6 +44,9 @@ public class SensorMonitoringController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void disable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
+        if (!sensorMonitoring.getEnabled()) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         sensorMonitoring.setEnabled(false);
         sensorMonitoringRepository.saveAndFlush(sensorMonitoring);
     }

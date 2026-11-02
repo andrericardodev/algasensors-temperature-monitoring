@@ -33,8 +33,8 @@ public class SensorMonitoringController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void enable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
-        if (sensorMonitoring.getEnabled()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        if (Boolean.TRUE.equals(sensorMonitoring.getEnabled())) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT);
         }
         sensorMonitoring.setEnabled(true);
         sensorMonitoringRepository.saveAndFlush(sensorMonitoring);
@@ -44,8 +44,8 @@ public class SensorMonitoringController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void disable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
-        if (!sensorMonitoring.getEnabled()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        if (Boolean.FALSE.equals(sensorMonitoring.getEnabled())) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT);
         }
         sensorMonitoring.setEnabled(false);
         sensorMonitoringRepository.saveAndFlush(sensorMonitoring);
